@@ -1,6 +1,6 @@
 setwd('../')
 
-data <- read.csv("neil/deseq2_collapsed/HFD_ff_v_HFD_ko.csv",header=T,row.names=1)
+data <- read.csv("deseq2_collapsed/HFD_ff_v_HFD_ko.csv",header=T,row.names=1)
 
 data$log2FoldChange <- data$log2FoldChange * -1
 data <- subset(data, baseMean > 100)
