@@ -158,7 +158,7 @@ Find more information on [navigating the ACCRE visualization Portal](https://www
 The other way to access ACCRE is by connecting to the resource through your terminal. 
 
 ```shell
-ssh vunetid@login.accre.vanderbilt.edu                 # ACCRE Login; 
+ssh vunetid@login.accre.vanderbilt.edu                 # ACCRE Login
 ```
 
 The 1st time you login, the system may prompt you asking if you trust the system. Type "yes" and hit return.  
