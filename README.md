@@ -117,9 +117,12 @@ chown owner[:group] fileName                                # Change the user an
 ```
 
 ### Bash Scripts
-> In order to submit work for the computers to run in the cloud, you need to submit a Bash Script.
+> In order to submit work for the computers to run in the cloud, you need to submit a Bash Script.  
 1. Create a script
-2. File Header
+```shell
+touch scriptname.bash
+```
+3. File Header
 
 A shebang (#!) is necessary to specify the type of file / language used
 Specify different options with #SBATCH
@@ -147,7 +150,7 @@ For the rest of this section, I will mostly be referring to the traditional comp
 
 There are 2 ways to access ACCRE.
 
-1. [the ACCRE Visualization Portal](http://portal.accre.vanderbilt.edu/)
+1. [The ACCRE Visualization Portal](http://portal.accre.vanderbilt.edu/)  
 This is a graphical interface, meaning you can access the resource through your web browser and click buttons to navigate.
 Find more information on [navigating the ACCRE visualization Portal](https://www.vanderbilt.edu/accre/portal/) on the Vanderbilt ACCRE Website.  
   
@@ -161,7 +164,7 @@ ssh vunetid@login.accre.vanderbilt.edu                 # ACCRE Login;
 The 1st time you login, the system may prompt you asking if you trust the system. Type "yes" and hit return.  
 
 You will also need to reset your password. You should receive a temporary password in an email from ACCRE.  
-Once you log in the first time, enter the following command and follow the instructions to set a new password.
+Once you log in the first time, enter the following command and follow the instructions to set a new password.  
 ```shell
 accre_password change
 ```
@@ -171,7 +174,7 @@ Find more commands on the [ACCRE Cheat Sheet](https://cdn.vanderbilt.edu/vu-wp0/
 
 ## Salmon
 > [Salmon](https://salmon.readthedocs.io/en/latest/index.html) is a transcript quantification tool for RNA-seq data.  
-> Because the RNASeq files are very large, we utilized ACCRE for increased computing power and decreased computing time.
+> Because the RNASeq files are very large, we utilized ACCRE for increased computing power and decreased computing time.  
 
 **Input**   : FASTA/FASTQ read files
 
@@ -189,7 +192,7 @@ make install
 ```
 
 ### Transcriptome Index Set Up
-1. Find a transcriptome index file and download it
+1. Find a transcriptome index file and download it  
 We used [this mus musculus index file from ensembl](ftp://ftp.ensembl.org/pub/release-
 99/fasta/mus_musculus/cdna/Mus_musculus.GRCm38.cdna.all.fa.gz)
 ```shell
@@ -205,10 +208,10 @@ This file will be used for the `-i` flag in the main salmon command
 salmon index -t filename.fa -i indexname
 ```
 
-### Post-Run : Verification & Exports
+### Post-Run : Verification & Exports  
 Export the `quant.sf` file and `log/*.log` files for further analysis
 
-To check Salmon ran properly:
+To check Salmon ran properly:  
 1. Compare the number of reads in the FQC file to the number of reads in the trimmed file
 2. Check the mapping rate (Our mapping rates were in the low to mid 80s)
 3. Check read counts and ratios of genes of interest
