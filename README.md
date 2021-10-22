@@ -225,17 +225,67 @@ To check Salmon ran properly:
 ### Plots
 
 #### Principle Component Analysis
+This analysis determines which component contributes the most variance in the samples used (i.e. pc1 contributes the most variance and pc2 contributes the next most). There are other components than the two shown but are less abundant. The changes are likely pretty subtle and noise can contribute a lot to the clustering. To minimize skew from noise, look at control data metrics and structure the dataset/analysis  
+```R
+rld <- rlog(dds, blind = TRUE)
+plotPCA(rld, intgroup = c("condition", "Type"))'                # columns of colData table
+```
 
 #### Heat Maps
+This diagram show similarities between the samples (measure of variance). Adjacent groups, especially those connected by hierarchy, are very close. Vertical distance is also proportional to actual 'distance' between samples.  
+```R
+rld_sampledist <- dist(t(assay(rld)))
+library("RColorBrewer")
+library(pheatmap)
+rld_sampledistmatrix <- as.matrix(rld_sampledist) rownames(rld_sampledistmatrix) <-
+paste(rld$Condition1, rld$Type, sep = "-") colnames(rld_sampledistmatrix) <- NULL
+colors <- colorRampPalette(rev(brewer.pal(9, "Blues")))(255) pheatmap(
+rld_sampledistmatrix, clustering_distance_rows = rld_sampledist, clustering_distance_cols = rld_sampledist, col = colors
+)
+```
 
 ### Normalized Counts
-
+The normalized counts data can be used for further analysis with additional heat maps  
+```R
+dds <- estimateSizeFactors(dds)
+counts <- counts(dds, normalized = TRUE) write.csv(counts, file = "norm_counts.csv")
+```
 #### MA Plots
-
+Look at data along the x-axis, where the data points on the right are highly expressed. The red dots indicate significantly differentially expressed genes.  
+```R
+dds <- DESeq(dds)
+plotMA(dds, ylim = c(-10,10))
+```
 #### Heat Maps
+2 separate heatmaps per analysis: one for upregulated genes and one for downregulated genes
+1. Standardize normalized data counts by reads per million (sum each column; divide each individual read by the column total and
+multiply by one million) and log transform (log2 or log10, as necessary)
+2. Cutoff as necessary to decrease the amount of data (i.e. abs(log2foldchange) > 1, basemean > 100, padj < 0.01)
+3. Plot with gene symbol
+4. Use 'pheatmap' library in R
+```Rpheatmap(up_norm, scale = "none", cellwidth = 20, cellheight = 15, cluster_rows = TRUE, cluster_cols = FALSE)```
 
 ### Pairwise Analysis
-
+The pairwise comparison data can be used for further analysis with volcano plots
+- Basemean: average expression across the dataset
+- Log2foldchange: log based two-fold change
+- Padj: adjusted p value, which is more stringent than the Pvalue because it accounts for having many genes 
+```R
+control_v_exp <- results(dds, c("Condition1", "control", "exp")) write.csv(control_v_exp, "control_v_exp.csv")
+```
 #### Volcano Plots
-
+Used the EnhancedVolcano library in R for a simple and quick way to construct volcano plots Restricted data to include only genes with baseMean > 100
+```R
+EnhancedVolcano(data, # name of dataset analyzed
+lab = rownames(data), # labels for the data (i.e. gene names) x = 'log2FoldChange', # column of data to be used as x-axis y = 'padj', # column of data to be used as y-axis
+xlim = c(-8, 8),
+ylim = c(-1,22),
+title = 'cutoff 10, basemean >100',
+pCutoff = 0.01, # p-value cutoff (corresponds w y-axis) FCcutoff = 1, # fold change cutoff (x-axis)
+pointSize = 3.0,
+labSize = 0,
+legendPosition = 'right',
+legendLabSize = 12,
+legendIconSize = 4.0)
+```
 #### Gene Set Enrichment Analysis
