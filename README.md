@@ -20,7 +20,6 @@ Simplified Bioinformatics Pipeline for Scientists Analyzing RNASeq Data
   - [Pairwise Analysis](#pairwise-analysis)
     - [Volcano Plots](#volcano-plots)
   - [Gene Set Enrichment Analysis (GSEA)](gene-set-enrichment-analysis)
--
 
 ## Environment
 > How to set up the basic work environment for the RNASeq Pipeline,
