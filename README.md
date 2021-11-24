@@ -355,11 +355,11 @@ plotMA(dds2, ylim = c(-10,10))
   - sum each column  
   - divide each individual read by the column total  
   - multiply by one million  
-  - log transform (log2 or log10) as necessary  
+  - log transform (`log2` or `log10`) as necessary  
 2. Set cutoffs as necessary. For example,  
-  - abs(log2foldchange) > 1  
-  - basemean > 100  
-  - padj < 0.01)  
+  - `abs(log2foldchange) > 1`  
+  - `basemean > 100`  
+  - `padj < 0.01`  
 3. Plot with gene symbol  
 4. Use `pheatmap` library in R  
 ```r
@@ -387,7 +387,7 @@ write.csv( paired_data, "paired_data.csv")              # export paired data as 
 
 #### Volcano Plots
 `EnhancedVolcano` library in R : simple and quick way to construct volcano plots  
-> Restrict data to include only genes with baseMean > 100
+> Restrict data to include only genes with `baseMean > 100`
 
 ```r
 EnhancedVolcano(data,                                   # name of dataset analyzed
@@ -422,7 +422,7 @@ ctr ctr ctr ctr exp exp exp exp
 
 3. Modify the normalized count values file  
   - Only include protein_coding genes  
-  - Subset by average reads > 100  
+  - Subset by `average reads > 100`  
   - Include gene name and description columns, with `ctr_{#}` and `exp_{#}` as column names for the sample counts  
   - Write table as a `.txt` file  
   - Open file in Excel and save
@@ -440,8 +440,8 @@ ctr ctr ctr ctr exp exp exp exp
   | **Permutation type** | gene_set |
   | **Chip Platform** | *choose based on gene set* |
 
-   `*`  default values  
-   `**` we used the `Mouse_Gene_Symbol_Remapping_MSigDB.v7.0.chip`
+> `*`  default values  
+> `**` we used the `Mouse_Gene_Symbol_Remapping_MSigDB.v7.0.chip`
 
 5. Analyze Results  
   - Sort `gsea_report_for_CTR/EXP_#####.xls` files by FDR and filter for genes with FDR < 0.01
