@@ -27,15 +27,16 @@ Simplified Bioinformatics Pipeline for Scientists Analyzing RNASeq Data
 ### Configuring Your Github Account in Terminal
 
 1. Make a free Github Account at github.com
-2. Set global configuration values for your computer
-option 1: type these commands in terminal
+2. Set global configuration values for your computer  
+
+*option 1*: type these commands in terminal
 ```shell
 git config --global user.name "YOUR NAME"                  
 git config --global user.email "YOUR-EMAIL@DOMAIN.COM"      
 
 git config --list                                           # check to see all values have updated correctly
 ```
-option 2: edit the `~/.gitconfig` file directly
+*option 2*: edit the `~/.gitconfig` file directly
 ```shell
 [user]
     name = Your Name
@@ -43,13 +44,13 @@ option 2: edit the `~/.gitconfig` file directly
 ```
 
 ### Using this Repository
-1. Clone this repository
-Open a terminal window and navigate to the place you would like to download this package using the `cd` command.
-Then, clone the repository using one of 2 commands with the link in the green code button at the top left of this repo.
+1. Clone this repository  
+Open a terminal window and navigate to the place you would like to download this package using the `cd` command.  
+Then, clone the repository using one of 2 commands with the link in the green code button at the top left of this repo.  
 ```bash
 git clone https://github.com/parkdj1/RNASeq-Pipeline.git    # HTTPS version (login using email/password)
 git clone git@github.com:parkdj1/RNASeq-Pipeline.git        # SSH   version (login using an ssh key pair)
-```
+```  
 Alternatively, download the zip file where you want the folder to be and open it to unzip.
 
 2. Python
@@ -60,9 +61,10 @@ Alternatively, download the zip file where you want the folder to be and open it
 > Working in a cloud computing environment 101
 
 ### Basic Linux
-Some computing resources have a GUI to easily access the cloud environment. Learning some basic linux commands can help you to really control what you're doing and opens up the possibilities for more functionality.  
+Some computing resources have a GUI to easily access the cloud environment.  
+Learning some basic linux commands can help you to really control what you're doing.  
 
-Here are some basic command-line tools to help you get started in terminal.
+Here are some basic command-line tools to help you get started in terminal.  
 > Tip: Use the `TAB` key to fill in the rest of your file path or see options for doing so  
 
 ```shell
@@ -124,8 +126,8 @@ touch scriptname.bash
 ```
 3. File Header
 
-A shebang (#!) is necessary to specify the type of file / language used
-Specify different options with #SBATCH
+A shebang (`#!`) is necessary to specify the type of file / language used.  
+Specify different options with `#SBATCH`
 
 For example :  
 ```shell
@@ -138,8 +140,10 @@ For example :
 #SBATCH --mem-per-cpu=16G
 #SBATCH --time=300
 ```
-3. Send the script `sbatch scriptname.bash`
-4. Check the Status of Your Scripts `squeue -u username`
+3. Send the script in terminal
+`sbatch scriptname.bash`
+5. Check the status of your jobs in terminal
+`squeue -u username`
 
 
 ### Vanderbilt ACCRE
@@ -148,37 +152,36 @@ For example :
 ACCRE offers 2 types of clusters: a traditional cluster and the Jupyter cluster.  
 For the rest of this section, I will mostly be referring to the traditional compute cluster.  
 
-There are 2 ways to access ACCRE.
+There are 2 ways to access ACCRE.  
 
 1. [The ACCRE Visualization Portal](http://portal.accre.vanderbilt.edu/)  
-This is a graphical interface, meaning you can access the resource through your web browser and click buttons to navigate.
+This is a graphical interface, meaning you can access the resource through your web browser and click buttons to navigate.  
 Find more information on [navigating the ACCRE visualization Portal](https://www.vanderbilt.edu/accre/portal/) on the Vanderbilt ACCRE Website.  
 
-2. Shell access
-The other way to access ACCRE is by connecting to the resource through your terminal.
-
+2. Shell access  
+The other way to access ACCRE is by connecting to the resource through your terminal.  
 ```shell
 ssh vunetid@login.accre.vanderbilt.edu                 # ACCRE Login
 ```
-
-The 1st time you login, the system may prompt you asking if you trust the system. Type "yes" and hit return.  
+The 1st time you login, the system may prompt you asking if you trust the system.  
+Type "yes" and hit return.  
 
 You will also need to reset your password. You should receive a temporary password in an email from ACCRE.  
 Once you log in the first time, enter the following command and follow the instructions to set a new password.  
 ```shell
 accre_password change
 ```
-The password must pass the [ZXCVBN test](https://www.bennish.net/password-strength-checker/) with a perfect score.
+The password must pass the [ZXCVBN test](https://www.bennish.net/password-strength-checker/) with a perfect score.  
 
-Find more commands on the [ACCRE Cheat Sheet](https://cdn.vanderbilt.edu/vu-wp0/wp-content/uploads/sites/157/2018/11/08171621/ACCRE-Cheat-Sheet-November-2018.pdf)
+> Find more commands on the [ACCRE Cheat Sheet](https://cdn.vanderbilt.edu/vu-wp0/wp-content/uploads/sites/157/2018/11/08171621/ACCRE-Cheat-Sheet-November-2018.pdf)  
 
-## Salmon
+## Salmon  
 > [Salmon](https://salmon.readthedocs.io/en/latest/index.html) is a transcript quantification tool for RNA-seq data.  
 > Because the RNASeq files are very large, we utilized ACCRE for increased computing power and decreased computing time.  
 
-**Input**   : FASTA/FASTQ read files
+**Input**   : FASTA/FASTQ read files  
 
-**Output**  : quantification log file, trimmed read files
+**Output**  : quantification log file | trimmed read files  
 
 ### Installation
 
@@ -192,20 +195,44 @@ make install
 ```
 
 ### Transcriptome Index Set Up
+
+The transcriptome index file will be used for the `-i` flag in the main Salmon command
+
 1. Find a transcriptome index file and download it  
-We used [this mus musculus index file from ensembl](ftp://ftp.ensembl.org/pub/release-
-99/fasta/mus_musculus/cdna/Mus_musculus.GRCm38.cdna.all.fa.gz)
 ```shell
-wget TRANSCRIPTOME_INDEX_FILE_URL [-o FILENAME]     # use the `-o` flag to rename the file when it downloads. Do not include the brackets if you decide to include this part!
+wget TRANSCRIPTOME-INDEX-FILE-URL [-o FILENAME.fa.gz]     # use the `-o` flag to specify what to name the file you download.
+
+# example with the 'mus musculus' index file from ensembl
+wget ftp://ftp.ensembl.org/pub/release-99/fasta/mus_musculus/cdna/Mus_musculus.GRCm38.cdna.all.fa.gz -o mouse_index.fa.gz
 ```
-2. Unzip the file
+2. Unzip the file (results in the removal of the `.gz` extension)  
 ```shell
-gunzip filename.gz
+gunzip FILENAME.fa.gz
+
+# example with 'mus musculus' index
+gunzip mouse_index.fa.gz
+```
+3. Run the Salmon index command to use your file in the main Salmon command  
+```shell
+salmon index -t FILENAME.fa -i NAME-YOUR-INDEX
+
+# example with 'mus musculus' index
+salmon index -t mouse_index.fa -i mouse-index
 ```
 
-This file will be used for the `-i` flag in the main salmon command
+### Running Salmon
 ```shell
-salmon index -t filename.fa -i indexname
+# main command - general form
+/path/to/bin/salmon quant -i /home/user/INDEX-NAME -l A\
+ -1 /path/to/FILE-1.fq.gz\
+ -2 /path/to/FILE-2.fq.gz\
+ -p NUMBER-OF-THREADS --validateMappings -o /path/to/DESIRED-OUTPUT-FOLDER
+
+# example with 'mus musculus' index
+/home/user/salmon-latest_linux_x86_64/bin/salmon quant -i /home/user/mouse-index -l A \
+ -1 /home/parkdj1/1/1_R1.gz_val_1.fq.gz\
+ -2 /home/parkdj1/1/1_R2.gz_val_2.fq.gz\
+ -p 8 --validateMappings -o quants/1
 ```
 
 ### Post-Run : Verification & Exports  
@@ -217,25 +244,28 @@ To check Salmon ran properly:
 3. Check read counts and ratios of genes of interest
 
 ## FastQC
-Download FASTQC software (I cloned to ACCRE)
+Download the [FASTQC software](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)  
+> a few different options are available. I cloned the GitHub repository to ACCRE  
 
+To run: 
 ```
-/path/to/FastQC/fastqc /path/to/file-1.fq.gz /path/to/file-2.fq.gz
+/path/to/FastQC/fastqc /path/to/FILE-1.fq.gz /path/to/FILE-2.fq.gz
 ```
 
 ## Differential Gene Expression Analysis
 
 ### DeSeq2
-Set Up Files for DeSeq2:
-1. In Python:
-  - extract desired columns
-  - write data in each quant file to a more useful format
-  - convert all counts to int data type
-  - increment all counts by 1 to get rid of any zeros
-2. In R:
-  - combine  modified quant files into one large table with each sample as a column
-  - filter data as necessary/desired (i.e. average counts > 10)
-3. Write `colData` table to import to R
+
+#### Set Up Files for DeSeq2:  
+1. In Python:  
+  - extract desired columns  
+  - write data in each quant file to a more useful format  
+  - convert all counts to int data type  
+  - increment all counts by 1 to get rid of any zeros  
+2. In R:  
+  - combine  modified quant files into one large table with each sample as a column  
+  - filter data as necessary/desired (i.e. `average counts > 10`)  
+3. Write `colData` table to import to R  
 ```
 Sample  Condition Type
   #      Control   #
@@ -243,19 +273,41 @@ Sample  Condition Type
   #      Exp       #
   ...
 ```
+> sample and type columns can be the same - number data samples
+
+#### Run DeSeq2:
+```r
+# main DeSeq2 command
+dds <- DESeqDataSetFromMatrix(
+  countData = myData,                                                 # formatted, filtered data
+  colData = colData,                                                  # data table from step 3 in Set Up
+  design = ~ Condition                                                # name of column from colData
+  )
+
+
+# format data for plots
+
+rlogData <- rlog( dds, blind = TRUE )                                 # apply a 'regularized log' transformation to DeSeq2 data 
+rld_sampledist <- dist(t(assay(rlogData)))                            # compute distance matrix of transpose of data
+rld_sampledistmatrix <- as.matrix(rld_sampledist)                     # format data as a matrix
+
+rownames(rld_sampledistmatrix) <-                                     # set row names to condition and type values
+  paste(rld$Condition, rld$Type, sep = "-")
+colnames(rld_sampledistmatrix) <- NULL                                # get rid of column names (set to NULL)
+```
 
 ### Plots
 
-#### Principle Component Analysis
-Determines which component contributes the most variance in the samples used
-> i.e. pc1 contributes the most variance, pc2 contributes the next second most amount of variance, etc.   
+#### Principle Component Analysis  
+Determines which component contributes the most variance in the samples used  
+> i.e. `pc1` contributes the most variance, `pc2` contributes the second most variance, etc.   
 
-There are other components than the two shown but the variance contributed from these is less abundant. The changes are likely pretty subtle and noise can contribute a lot to the clustering.  
-To minimize skew from noise, look at control data metrics and structure the dataset/analysis
+There PCA plot only shows 2 components, but there are other components that contribute less variabce.  
+The changes are likely pretty subtle and noise can contribute a lot to the clustering.  
+To minimize skew from noise, look at control data metrics and structure your dataset and analysis parameters accordingly.  
 
 ```r
-rld <- rlog(dds, blind = TRUE)
-plotPCA(rld, intgroup = c("condition", "Type"))   # columns of colData table
+plotPCA( rlogData, intgroup = c("condition", "Type") )                # use columns of colData table for 'intgroup'
 ```
 
 #### Heat Map (Component Analysis)
@@ -264,16 +316,10 @@ Adjacent groups (especially those connected by hierarchy) are very close.
 Vertical distance is also proportional to actual 'distance' between samples.
 
 ```r
-rld_sampledist <- dist(t(assay(rld)))
+library("RColorBrewer")                                               # import libraries for use in R
+library(pheatmap)                                                     # you will likely need to download these libraries initially
 
-library("RColorBrewer")
-library(pheatmap)
-
-rld_sampledistmatrix <- as.matrix(rld_sampledist)
-rownames(rld_sampledistmatrix) <-
-  paste(rld$Condition1, rld$Type, sep = "-")
-colnames(rld_sampledistmatrix) <- NULL
-colors <- colorRampPalette(rev(brewer.pal(9, "Blues")))(255)
+colors <- colorRampPalette(rev(brewer.pal(9, "Blues")))(255)          # set heatmap colors (optional, up to preference)
 
 pheatmap(
   rld_sampledistmatrix,
@@ -287,9 +333,11 @@ pheatmap(
 The normalized counts data can be used for further analysis with additional heat maps
 
 ```r
-dds <- estimateSizeFactors(dds)
-counts <- counts(dds, normalized = TRUE)
+sf <- estimateSizeFactors(dds)
+counts <- counts(sf, normalized = TRUE)
 write.csv(counts, file = "norm_counts.csv")
+
+dds2 <- DESeq(dds)
 ```
 
 #### MA Plots
@@ -297,27 +345,25 @@ Look at data along the x-axis, where the data on the right are highly expressed.
 Red dots indicate significantly differentially expressed genes.
 
 ```r
-dds <- DESeq(dds)
-plotMA(dds, ylim = c(-10,10))
+plotMA(dds2, ylim = c(-10,10))
 ```
 
 #### Heat Maps
-> 2 heatmaps per analysis: (1) upregulated genes (2) downregulated genes
+> 2 heatmaps per analysis: (1) upregulated genes (2) downregulated genes  
 
-1. Standardize normalized data counts by reads per million
-  - sum each column
-  - divide each individual read by the column total
-  - multiply by one million
-  - log transform (log2 or log10) as necessary
-2. Set cutoffs as necessary. For example,
-  - abs(log2foldchange) > 1
-  - basemean > 100
-  - padj < 0.01)
-3. Plot with gene symbol
-4. Use `pheatmap` library in R
-
+1. Standardize normalized data counts by reads per million  
+  - sum each column  
+  - divide each individual read by the column total  
+  - multiply by one million  
+  - log transform (log2 or log10) as necessary  
+2. Set cutoffs as necessary. For example,  
+  - abs(log2foldchange) > 1  
+  - basemean > 100  
+  - padj < 0.01)  
+3. Plot with gene symbol  
+4. Use `pheatmap` library in R  
 ```r
-pheatmap(up_norm,
+pheatmap( data,                                         # run once each with upregulated / downregulated gene data
   scale = "none",
   cellwidth = 20,
   cellheight = 15,
@@ -325,7 +371,18 @@ pheatmap(up_norm,
   cluster_cols = FALSE)
 ```
 
-### Pairwise Analysis
+### Pairwise Analysis  
+
+The pairwise comparison data can be used for further analysis with volcano plots  
+* **Basemean**: average expression across the dataset
+* **Log2foldchange**: log based two-fold change
+* **Padj**: adjusted p value (more stringent than Pvalue because it accounts for having many genes)
+```r
+paired_data <- results( dds2,
+  c("Condition", "CTR", "EXP"))
+write.csv( paired_data, "paired_data.csv")              # export paired data as a CSV file
+```
+
 > Post-DESeq modifications: Match ensembl id's to gene names and other details
 
 #### Volcano Plots
@@ -333,15 +390,15 @@ pheatmap(up_norm,
 > Restrict data to include only genes with baseMean > 100
 
 ```r
-EnhancedVolcano(data,           # name of dataset analyzed
-  lab = rownames(data),         # labels for data (i.e. gene names)
-  x = 'log2FoldChange',         # data column to be used as x-axis
-  y = 'padj',                   # data column to be used as y-axis
+EnhancedVolcano(data,                                   # name of dataset analyzed
+  lab = rownames(data),                                 # data labels (i.e. gene names)
+  x = 'log2FoldChange',                                 # data column to be used as x-axis
+  y = 'padj',                                           # data column to be used as y-axis
   xlim = c(-8, 8),
   ylim = c(-1,22),
   title = 'MY_TITLE',
-  pCutoff = 0.01,               # p-value cutoff (y-axis)
-  FCcutoff = 1,                 # fold change cutoff (x-axis)
+  pCutoff = 0.01,                                       # p-value cutoff (y-axis)
+  FCcutoff = 1,                                         # fold change cutoff (x-axis)
   pointSize = 3.0,
   labSize = 0,
   legendPosition = 'right',
