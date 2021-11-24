@@ -117,6 +117,7 @@ chown owner[:group] fileName                                # Change the user an
 
 ### Bash Scripts
 > In order to submit work for the computers to run in the cloud, you need to submit a Bash Script.  
+
 1. Create a script
 ```shell
 touch scriptname.bash
@@ -219,7 +220,7 @@ To check Salmon ran properly:
 Download FASTQC software (I cloned to ACCRE)
 
 ```
-/path/to/FastQC/fastqc /path/to/file_1.fq.gz /path/to/file_2.fq.gz
+/path/to/FastQC/fastqc /path/to/file-1.fq.gz /path/to/file-2.fq.gz
 ```
 
 ## Differential Gene Expression Analysis
@@ -252,7 +253,7 @@ Determines which component contributes the most variance in the samples used
 There are other components than the two shown but the variance contributed from these is less abundant. The changes are likely pretty subtle and noise can contribute a lot to the clustering.  
 To minimize skew from noise, look at control data metrics and structure the dataset/analysis
 
-```R
+```r
 rld <- rlog(dds, blind = TRUE)
 plotPCA(rld, intgroup = c("condition", "Type"))   # columns of colData table
 ```
@@ -262,7 +263,7 @@ Shows similarities between the samples (measure of variance).
 Adjacent groups (especially those connected by hierarchy) are very close.  
 Vertical distance is also proportional to actual 'distance' between samples.
 
-```R
+```r
 rld_sampledist <- dist(t(assay(rld)))
 
 library("RColorBrewer")
@@ -285,7 +286,7 @@ pheatmap(
 ### Normalized Counts
 The normalized counts data can be used for further analysis with additional heat maps
 
-```R
+```r
 dds <- estimateSizeFactors(dds)
 counts <- counts(dds, normalized = TRUE)
 write.csv(counts, file = "norm_counts.csv")
@@ -295,7 +296,7 @@ write.csv(counts, file = "norm_counts.csv")
 Look at data along the x-axis, where the data on the right are highly expressed.  
 Red dots indicate significantly differentially expressed genes.
 
-```R
+```r
 dds <- DESeq(dds)
 plotMA(dds, ylim = c(-10,10))
 ```
@@ -315,7 +316,7 @@ plotMA(dds, ylim = c(-10,10))
 3. Plot with gene symbol
 4. Use `pheatmap` library in R
 
-```R
+```r
 pheatmap(up_norm,
   scale = "none",
   cellwidth = 20,
@@ -328,11 +329,10 @@ pheatmap(up_norm,
 > Post-DESeq modifications: Match ensembl id's to gene names and other details
 
 #### Volcano Plots
-`EnhancedVolcano` library in R : simple and quick way to construct volcano plots
-
+`EnhancedVolcano` library in R : simple and quick way to construct volcano plots  
 > Restrict data to include only genes with baseMean > 100
 
-```
+```r
 EnhancedVolcano(data,           # name of dataset analyzed
   lab = rownames(data),         # labels for data (i.e. gene names)
   x = 'log2FoldChange',         # data column to be used as x-axis
@@ -372,14 +372,19 @@ ctr ctr ctr ctr exp exp exp exp
     > Not sure why this works but it does. Otherwise, GSEA complains of about the file type and won't upload it to the software)  
 
 4. Run GSEA with correct parameters  
-  - **Expression Dataset**: your modified normalized count file
-  - **Gene Sets Database**: Choose based on desired analysis  
-  - **Number of permutations**: default (1000)  
-  - **Phenotype labels**: CTR_versus_EXP
-  - **Collapse/Remap**: default
-  - **Permutation type**: gene_set
-  - **Chip Platform**: Mouse_Gene_Symbol_Remapping_MSigDB.v7.0.chip
+  | **Parameter** | **Option** `*` |
+  | - | - |
+  | **Expression Dataset** | your normalized count file |
+  | **Gene Sets Database** | *choose based on desired analysis* |
+  | **Number of permutations** | 1000 `*` |
+  | **Phenotype labels** | CTR_versus_EXP |
+  | **Collapse/Remap** | collapse `*` |
+  | **Permutation type** | gene_set |
+  | **Chip Platform** | *choose based on gene set* |
+
+   `*`  default values  
+   `**` we used the `Mouse_Gene_Symbol_Remapping_MSigDB.v7.0.chip`
 
 5. Analyze Results  
   - Sort `gsea_report_for_CTR/EXP_#####.xls` files by FDR and filter for genes with FDR < 0.01
-  - Look at 'ranked_gene_list.####.xls' file for combined information
+  - Look at `ranked_gene_list.####.xls` file for combined information
