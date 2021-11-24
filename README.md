@@ -372,6 +372,7 @@ ctr ctr ctr ctr exp exp exp exp
     > Not sure why this works but it does. Otherwise, GSEA complains of about the file type and won't upload it to the software)  
 
 4. Run GSEA with correct parameters  
+
   | **Parameter** | **Option** `*` |
   | - | - |
   | **Expression Dataset** | your normalized count file |
