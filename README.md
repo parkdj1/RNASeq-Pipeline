@@ -13,13 +13,13 @@ Simplified Bioinformatics Pipeline for Scientists Analyzing RNASeq Data
   - [DESeq2](#deseq2)
   - [Plots](#plots)
     - [Principle Component Analysis (PCA)](#principle-component-analysis)
-    - [Heat Map](#heat-map--component-analysis--)
+    - [Heat Map](#heat-map-component-analysis)
   - [Normalized Counts Data](#normalized-counts)
     - [MA Plots](#ma-plots)
     - [Heat Maps](#heat-maps)
   - [Pairwise Analysis](#pairwise-analysis)
     - [Volcano Plots](#volcano-plots)
-  - [Gene Set Enrichment Analysis (GSEA)](gene-set-enrichment-analysis)
+  - [Gene Set Enrichment Analysis (GSEA)](#gene-set-enrichment-analysis)
 
 ## Environment
 > How to set up the basic work environment for the RNASeq Pipeline,
