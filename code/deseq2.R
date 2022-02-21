@@ -6,15 +6,15 @@ library(DESeq2)
 library(ggplot2)
 
 #change these to match data
-setwd("Desktop/PUA_LAB")
-folder = "Serezani"
-file_before_num = "Serezani/salmon_quant/"
+setwd("~/")
+folder = "FOLDER_NAME"
+file_before_num = "FOLDER_NAME/salmon_quant/"
 file_after_num = "quant_collapsed.sf"
-column_data_file = "Serezani/column_data.txt"
+column_data_file = "FOLDER_NAME/column_data.txt"
 num_samples = 10
 list_samps = c(1:10)
-CTL = "NOT_INFECTED"
-EXP = "mkSA"
+CTL = "CTL_NAME"
+EXP = "EXP_NAME"
 condition_values = c(rep(CTL, 5), rep(EXP, 5))
 
 # process files and run through DeSeq2

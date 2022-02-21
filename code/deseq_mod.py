@@ -7,7 +7,7 @@ Created on Fri May 15 11:21:28 2020
 """
 
 
-file_name_before_num = "../Serezani/salmon_quant/"
+file_name_before_num = "../FOLDER_NAME/salmon_quant/"
 file_name_after_num = "quant"
 q_file = ".sf"
 o = "_mod.sf"

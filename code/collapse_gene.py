@@ -1,21 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Sep 21 15:12:03 2020
+Created on Mon Sep 21 2020
 
 @author: deborah
 """
 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 22 23:57:15 2020
-
-@author: deborah
-"""
-
-
-file_name_before_num = "../Serezani/salmon_quant/"
+file_name_before_num = "../salmon_quant/"
 file_name_after_num = "quant"
 q_file = ".sf"
 o = "_collapsed.sf"

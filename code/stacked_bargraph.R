@@ -1,7 +1,9 @@
-setwd("Desktop/PUA_LAB/Genboree_output_AA_mice_2019")
+setwd("~/")
+my_csv <- "~/PATH/TO/CSV_FILE.csv"
+
 library(ggplot2)
 
-df <- read.csv("/Users/deborah/Desktop/PUA_LAB/Genboree_output_AA_mice_2019/rpm_prop.csv")
+df <- read.csv(my_csv)
 head(df)
 
 ggplot(df, aes(fill=YRNA, x=count, y=type, label=count)) + 

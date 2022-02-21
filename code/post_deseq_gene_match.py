@@ -7,8 +7,8 @@ Created on Fri May 22 23:57:15 2020
 """
 import csv
 
-extension = "../Serezani/"
-file_name_1 = "CTL_v_STZ"
+extension = "../FOLDER_NAME/"
+file_name_1 = "CTL_v_EXP"
 file_name_2 = "norm_counts"
 q_file = ".csv"
 o = "_mod.csv"
