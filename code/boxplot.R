@@ -1,8 +1,27 @@
-setwd("Desktop/PUA_LAB/Genboree_output_AA_mice_2019")
+# ###########################
+#
+#  boxplot.R
+#
+#  Created on Wed May 6 2020
+#  @author: parkdj1
+#
+#  create box plots from CSV data
+#
+#  input: CSV file
+#  output: box plot
+#
+# ###########################
+
+# set working directory (AKA where are your files going to be/output to)
+setwd('../')
+
+# set path to CSV file containing data
+my_csv <- "PATH/TO/DATAFILE.csv"
+
 library(ggplot2)
 library(outliers)
 
-df <- read.csv("/Users/deborah/Desktop/PUA_LAB/Genboree_output_AA_mice_2019/rpm_prop.csv")
+df <- read.csv(my_csv)
 head(df)
 grubbs.test(df$count)
 df_no_outlier <- head(df,-1)
@@ -40,4 +59,5 @@ p1
 ggsave("YRNA1_boxplot_rpm_prop.png",width=5,height=3)
 p3
 ggsave("YRNA3_boxplot_rpm_prop.png",width=5,height=3)
+
 
